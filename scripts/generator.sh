@@ -1,0 +1,1 @@
+while read x; do echo "$x" > expenses; sleep 0.5; done < ../data/Purchase_Orders_in_FY_2017.csv
