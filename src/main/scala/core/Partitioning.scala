@@ -3,7 +3,8 @@ package core
 import org.apache.spark.sql.SparkSession
 
 object Partitioning extends App {
-  val spark = SparkSession.builder()
+  val spark = SparkSession
+    .builder()
     .master("local[*]")
     .appName("Partitioning")
     .getOrCreate()
@@ -11,10 +12,15 @@ object Partitioning extends App {
   val sc = spark.sparkContext
 
   //set
-  val inputData = sc.parallelize(List(1,2,3,4,2,9,6,4,9,0,8,7,6,3,12,13,11,3,4,2,2,3,5,4,3,2,1,2,5,6,7,8,3,2,5,5,3,3,7), 4)
+  val inputData = sc.parallelize(
+    List(1, 2, 3, 4, 2, 9, 6, 4, 9, 0, 8, 7, 6, 3, 12, 13, 11, 3, 4, 2, 2, 3, 5, 4, 3, 2, 1, 2, 5,
+      6, 7, 8, 3, 2, 5, 5, 3, 3, 7),
+    4
+  )
 
-  val outputData = inputData.map(x=>(x,1))
-    .reduceByKey(_+_)
+  val outputData = inputData
+    .map(x => (x, 1))
+    .reduceByKey(_ + _)
 
   println("Original partitions:")
   outputData.foreachPartition(x => println(x.mkString(", ")))

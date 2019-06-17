@@ -2,7 +2,6 @@ package sql
 
 import org.apache.spark.sql.SparkSession
 
-
 /*
 Cmount from which website number of the successful connections was the biggest (referer=200).
 Use Dataframe API.
@@ -14,14 +13,13 @@ Use Dataframe API.
  */
 object NasaExcercises extends App {
 
-  val spark = SparkSession.builder()
+  val spark = SparkSession
+    .builder()
     .master("local[*]")
     .appName("Partitioning")
     .getOrCreate()
 
   val sqlContext = spark.sqlContext
-
-
 
   //0. import sqlContext.implicits._
 
@@ -37,5 +35,5 @@ object NasaExcercises extends App {
   val finalData = ???
 
   //4. Save output as textfile (output should be one tab separated and sorted descending file).
-  finalData
+  //finalData
 }
